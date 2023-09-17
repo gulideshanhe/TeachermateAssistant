@@ -55,7 +55,7 @@ function readCount() {
     }
     let begining = document.querySelector(".begin");
     begining.innerHTML = "正在刷课件中……";
-    begining.removeEventListener("click", readCount);
+    // begining.removeEventListener("click", readCount);
     query(`https://v18.teachermate.cn/wechat-api/v1/coursewares/${courseid}/student`).then(
         function (data) {
             data["coursewares"].forEach(dict => {
@@ -64,7 +64,7 @@ function readCount() {
                     query(dict["previewUrl"]).then(
                         previewUrl => {
                             setInterval(() => {
-                                fetch(previewUrl["accessId"], {
+                                fetch("https://v18.teachermate.cn/wechat-api/v1/coursewares/access/" + previewUrl["accessId"], {
                                     method: 'put',
                                     headers: {
                                         "Openid": openid, 'Content-Type': 'application/json'
